@@ -131,15 +131,20 @@ const container = document.getElementById("container");
 
 
 posts.forEach((element) => { 
-const createPost = document.createElement("div");
+let createPost = document.createElement("div");
 createPost.classList.add("post");
+
+if(element.is_liked === true){
+    element.is_liked = "like-button--liked";
+}
+
 createPost.innerHTML = 
 `
     <div class="post">
         <div class="post__header">
             <div class="post-meta">
                 <div class="post-meta__icon">
-                    <img class="profile-pic" src="${element.author.image}" alt="">
+                    <img class="profile-pic" src="${element.author.image}" alt="${element.author.name}">
                 </div>
                 <div class="post-meta__data">
                     <div class="post-meta__author">${element.author.name}</div>
@@ -154,7 +159,7 @@ createPost.innerHTML =
         <div class="post__footer">
             <div class="likes js-likes">
                 <div class="likes__cta">
-                    <a class="like-button  js-like-button" href="#" data-postid="1">
+                    <a class="like-button  js-like-button${element.id}" href="javascript:;" data-postid="1">
                         <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                         <span class="like-button__label">Mi Piace</span>
                     </a>
@@ -166,7 +171,19 @@ createPost.innerHTML =
         </div>
     </div>
 `;
-
 container.append(createPost);
+
+
+let likeButton = document.querySelector(`.js-like-button${element.id}`);
+
+likeButton.addEventListener('click',function(){
+    if(!element.is_liked){
+        likeButton.classList.add('like-button--liked')
+        element.is_liked = true
+    }else{
+        likeButton.classList.remove('like-button--liked')
+        element.is_liked = false
+    }
+})
 
 });
