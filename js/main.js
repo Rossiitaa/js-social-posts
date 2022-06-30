@@ -134,10 +134,6 @@ posts.forEach((element) => {
 let createPost = document.createElement("div");
 createPost.classList.add("post");
 
-if(element.is_liked === true){
-    element.is_liked = "like-button--liked";
-}
-
 createPost.innerHTML = 
 `
     <div class="post">
@@ -175,14 +171,19 @@ container.append(createPost);
 
 
 let likeButton = document.querySelector(`.js-like-button${element.id}`);
+let likes = document.getElementById(element.id);
 
 likeButton.addEventListener('click',function(){
     if(!element.is_liked){
         likeButton.classList.add('like-button--liked')
         element.is_liked = true
+        element.likes++
+        likes.innerHTML = element.likes
     }else{
         likeButton.classList.remove('like-button--liked')
         element.is_liked = false
+        element.likes--
+        likes.innerHTML = element.likes
     }
 })
 
