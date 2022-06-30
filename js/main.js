@@ -144,7 +144,7 @@ createPost.innerHTML =
                 </div>
                 <div class="post-meta__data">
                     <div class="post-meta__author">${element.author.name}</div>
-                    <div class="post-meta__time">${element.created}</div>
+                    <div class="post-meta__time">${dateToString(element.created)}</div>
                 </div>
             </div>
         </div>
@@ -188,3 +188,7 @@ likeButton.addEventListener('click',function(){
 })
 
 });
+
+function dateToString(date) {
+    return date.split('-').reverse().join('/');
+}
